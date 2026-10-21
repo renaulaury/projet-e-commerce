@@ -10,6 +10,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        {/* :slug = partie variable de l'URL, lue avec useParams */}
+        <Route path="/categorie/:slug" element={<HomePage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
