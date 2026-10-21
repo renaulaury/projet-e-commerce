@@ -1,0 +1,22 @@
+/* margin-top: auto colle le footer en bas de la page */
+.footer {
+  margin-top: auto;
+  background: var(--color-text-dark);
+  color: #fff;
+  padding: 40px 0;
+}
+
+.footer p {
+  margin: 0 0 8px;
+}
+
+.footer__logo {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--color-primary);
+}
+
+.footer__copyright {
+  font-size: 14px;
+  opacity: 0.8;
+}

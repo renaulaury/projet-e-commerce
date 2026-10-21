@@ -1,0 +1,21 @@
+/* 4 colonnes sur ordinateur */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px 24px;
+}
+
+/* 3 colonnes sur tablette */
+@media (max-width: 1000px) {
+  .product-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 2 colonnes sur mobile */
+@media (max-width: 600px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 16px;
+  }
+}

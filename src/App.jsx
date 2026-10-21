@@ -1,11 +1,19 @@
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
   return (
-    <section id="center">
-      <h1>Projet React + Vite</h1>
-    </section>
-  )
+    <BrowserRouter>
+      {/* Header et Footer hors de Routes : affichés sur toutes les pages */}
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
