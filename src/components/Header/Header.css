@@ -36,8 +36,47 @@
   text-underline-offset: 6px;
 }
 
+/* relative : la pastille se place par rapport à l'icône */
 .header__cart {
-  font-weight: 600;
+  position: relative;
+  display: flex;
+  color: var(--color-text-dark);
+}
+
+.header__cart-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* Pastille orange avec le nombre d'articles, en haut à droite de l'icône */
+.header__cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  animation: badge-pop 0.3s ease-out;
+}
+
+/* Petit rebond quand le nombre change */
+@keyframes badge-pop {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Mobile : le menu passe sous le logo */

@@ -1,7 +1,10 @@
+import { useCart } from "../../hooks/useCart";
 import "./ProductCard.css";
 
-// Carte d'un produit : image, titre, avis et prix
+// Carte d'un produit : image, titre, avis, prix et bouton d'ajout au panier
 function ProductCard({ product }) {
+  const { addToCart } = useCart();
+
   return (
     <article className="product-card">
       {/* carré de fond derrière l'image */}
@@ -19,6 +22,13 @@ function ProductCard({ product }) {
       </p>
       {/* toFixed(2) : toujours 2 décimales (ex : 22.30) */}
       <p className="product-card__price">{product.price.toFixed(2)} €</p>
+      <button
+        type="button"
+        className="product-card__add"
+        onClick={() => addToCart(product)}
+      >
+        Ajouter au panier
+      </button>
     </article>
   );
 }
