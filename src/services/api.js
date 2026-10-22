@@ -17,3 +17,22 @@ export async function getProducts(category) {
   // conversion JSON en tabl prod
   return response.json();
 }
+
+// Demande au serveur une page de paiement Stripe et renvoie son URL
+export async function createCheckout(items) {
+  // on n'envoie que id + quantité : le serveur retrouve lui-même les prix
+  const response = await fetch("/api/checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      items: items.map((item) => ({ id: item.id, quantity: item.quantity })),
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Impossible de lancer le paiement");
+  }
+
+  const data = await response.json();
+  return data.url;
+}
