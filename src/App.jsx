@@ -3,6 +3,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import HomePage from "./pages/HomePage/HomePage";
 import CartPage from "./pages/CartPage/CartPage";
+import SuccessPage from "./pages/SuccessPage/SuccessPage";
 import CartProvider from "./context/CartProvider";
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
           {/* :slug lue avec useParams */}
           <Route path="/categorie/:slug" element={<HomePage />} />
           <Route path="/panier" element={<CartPage />} />
+          {/* retour de Stripe après paiement */}
+          <Route path="/commande/succes" element={<SuccessPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

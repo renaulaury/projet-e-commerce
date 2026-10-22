@@ -54,6 +54,11 @@ function CartProvider({ children }) {
     setItems((current) => current.filter((item) => item.id !== id));
   }
 
+  // vide le panier (après un paiement réussi)
+  function clearCart() {
+    setItems([]);
+  }
+
   // nombre total d'articles (somme des quantités), affiché sur l'icône
   const count = items.reduce((total, item) => total + item.quantity, 0);
   // prix total du panier
@@ -61,7 +66,7 @@ function CartProvider({ children }) {
 
   return (
     <CartContext.Provider
-      value={{ items, count, total, addToCart, updateQuantity, removeFromCart }}
+      value={{ items, count, total, addToCart, updateQuantity, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>

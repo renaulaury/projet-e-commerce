@@ -1,10 +1,27 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { useCart } from "../../hooks/useCart";
+import { createCheckout } from "../../services/api";
 import "./CartPage.css";
 
-// Page panier : liste des articles, quantités et total
+// Page panier
 function CartPage() {
   const { items, count, total, updateQuantity, removeFromCart } = useCart();
+  const [paying, setPaying] = useState(false);
+  const [error, setError] = useState(null);
+
+  // demande l'URL Stripe au serveur puis quitte le site pour payer
+  async function handleCheckout() {
+    setPaying(true);
+    setError(null);
+    try {
+      const url = await createCheckout(items);
+      window.location.href = url;
+    } catch (err) {
+      setError(err.message);
+      setPaying(false);
+    }
+  }
 
   if (items.length === 0) {
     return (
@@ -34,8 +51,9 @@ function CartPage() {
               <p className="cart__item-price">{item.price.toFixed(2)} €</p>
             </div>
 
-            {/* - / + : à 0 le produit est retiré du panier */}
+            
             <div className="cart__quantity">
+              {/* less panier */}
               <button
                 type="button"
                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -44,6 +62,7 @@ function CartPage() {
                 −
               </button>
               <span>{item.quantity}</span>
+              {/* add panier */}
               <button
                 type="button"
                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
@@ -57,6 +76,7 @@ function CartPage() {
               {(item.price * item.quantity).toFixed(2)} €
             </p>
 
+            {/* del panier */}
             <button
               type="button"
               className="cart__remove"
@@ -72,7 +92,17 @@ function CartPage() {
         <p>
           {count} article(s) · Total : <strong>{total.toFixed(2)} €</strong>
         </p>
-        <Link to="/" className="cart__button">
+        {/* paiement : on part sur la page Stripe */}
+        <button
+          type="button"
+          className="cart__button"
+          onClick={handleCheckout}
+          disabled={paying}
+        >
+          {paying ? "Redirection..." : "Payer"}
+        </button>
+        {error && <p className="cart__error">{error}</p>}
+        <Link to="/" className="cart__link">
           Continuer mes achats
         </Link>
       </div>

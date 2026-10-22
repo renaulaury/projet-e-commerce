@@ -124,18 +124,44 @@
   width: fit-content;
   margin: 24px auto 0;
   padding: 10px 20px;
+  border: none;
   background: var(--color-primary);
   color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 17px;
   font-weight: 600;
+  cursor: pointer;
   transition: background 0.2s;
 }
 
 .cart__summary .cart__button {
   margin: 0;
+  min-width: 200px;
 }
 
 .cart__button:hover {
   background: var(--color-primary-hover);
+}
+
+/* pendant la redirection vers Stripe */
+.cart__button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.cart__error {
+  color: #c62828;
+  font-size: 15px;
+}
+
+.cart__link {
+  font-size: 15px;
+  color: var(--color-text-light);
+  text-decoration: underline;
+}
+
+.cart__link:hover {
+  color: var(--color-primary-hover);
 }
 
 /* Mobile : titre sur toute la largeur, contrôles en dessous */
