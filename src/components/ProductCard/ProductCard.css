@@ -58,3 +58,26 @@
   font-weight: 600;
   color: var(--color-text-dark);
 }
+
+/* margin-top: auto : le bouton reste collé en bas de la carte */
+.product-card__add {
+  margin-top: auto;
+  padding: 10px 16px;
+  border: none;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.product-card__add:hover {
+  background: var(--color-primary-hover);
+}
+
+/* Petit enfoncement au clic */
+.product-card__add:active {
+  transform: scale(0.97);
+}

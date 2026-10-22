@@ -1,9 +1,12 @@
 import { Link, NavLink } from "react-router";
 import { categories } from "../../data/categories";
+import { useCart } from "../../hooks/useCart";
 import "./Header.css";
 
 // En-tête : logo, liens des catégories et panier
 function Header() {
+  const { count } = useCart();
+
   return (
     <header className="header">
       <div className="container header__bar">
@@ -23,9 +26,29 @@ function Header() {
           ))}
         </nav>
 
-        <a href="#" className="header__cart">
-          Panier (0)
-        </a>
+        <Link to="/panier" className="header__cart" aria-label={`Panier : ${count} article(s)`}>
+          {/* icône sac de courses */}
+          <svg
+            className="header__cart-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M6 7h12l-1 13H7L6 7z" />
+            <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+          </svg>
+          {/* pastille affichée seulement si le panier n'est pas vide ;
+              key={count} relance l'animation à chaque ajout */}
+          {count > 0 && (
+            <span key={count} className="header__cart-badge">
+              {count > 99 ? "99+" : count}
+            </span>
+          )}
+        </Link>
       </div>
     </header>
   );
