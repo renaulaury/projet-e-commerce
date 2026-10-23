@@ -25,15 +25,49 @@
 }
 
 .header__nav a:hover,
+.header__account a:hover,
 .header__cart:hover {
   color: var(--color-primary-hover);
 }
 
 /* Lien de la page en cours : orange + souligné */
-.header__nav a.active {
+.header__nav a.active,
+.header__account a.active {
   color: var(--color-primary);
   text-decoration: underline;
   text-underline-offset: 6px;
+}
+
+/* S'inscrire / Connexion */
+.header__account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.header__account span {
+  color: var(--color-text-light);
+}
+
+.header__account .header__user {
+  color: var(--color-text-dark);
+}
+
+/* bouton qui ressemble aux liens */
+.header__logout {
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header__logout:hover {
+  color: var(--color-primary-hover);
 }
 
 /* relative : la pastille se place par rapport à l'icône */
