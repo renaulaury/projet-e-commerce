@@ -1,12 +1,14 @@
 import { Link, NavLink } from "react-router";
 import { categories } from "../../data/categories";
 import { useCart } from "../../hooks/useCart";
+import { useAuth } from "../../hooks/useAuth";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Header.css";
 
-// En-tête : logo, liens des catégories, recherche et panier
+// En-tête : logo, liens des catégories, recherche, compte et panier
 function Header() {
   const { count } = useCart();
+  const { user, logout } = useAuth();
 
   return (
     <header className="header">
@@ -28,6 +30,25 @@ function Header() {
         </nav>
 
         <SearchBar />
+
+        {/* connecté : Salut "nom" / Déco, sinon S'inscrire / Connexion */}
+        <nav className="header__account">
+          {user ? (
+            <>
+              <span className="header__user">Salut {user.name}</span>
+              <span aria-hidden="true">/</span>
+              <button type="button" className="header__logout" onClick={logout}>
+                Déco
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/inscription">S'inscrire</NavLink>
+              <span aria-hidden="true">/</span>
+              <NavLink to="/connexion">Connexion</NavLink>
+            </>
+          )}
+        </nav>
 
         <Link to="/panier" className="header__cart" aria-label={`Panier : ${count} article(s)`}>
           {/* icône sac de courses */}
