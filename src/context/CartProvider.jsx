@@ -3,7 +3,7 @@ import { CartContext } from "./CartContext";
 
 const STORAGE_KEY = "cart";
 
-// lit le panier sauvegardé (vide si rien ou si le navigateur bloque le stockage)
+// lit le panier save 
 function loadCart() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? [];
@@ -12,21 +12,21 @@ function loadCart() {
   }
 }
 
-// Fournit le panier à toute l'application
+// Fournit le panier à toute l'appli
 function CartProvider({ children }) {
   // chaque ligne : { id, title, price, image, quantity }
   const [items, setItems] = useState(loadCart);
 
-  // sauvegarde à chaque changement : le panier survit au rechargement de la page
+  // save à chaque changement
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {
-      // stockage indisponible : le panier reste seulement en mémoire
+      // stockage indispo : le panier reste seulement en mémoire
     }
   }, [items]);
 
-  // produit déjà dans le panier : +1 sur la quantité, sinon nouvelle ligne
+  // produit déjà dans le panier : +1 sur la qté, sinon nouvelle ligne
   // ... = spread, copie le prod (ou le panier) avant modif
   function addToCart(product) {
     setItems((current) => {
@@ -41,7 +41,7 @@ function CartProvider({ children }) {
     });
   }
 
-  // change la quantité d'un produit ; à 0 ou moins, le produit est retiré
+  // change qté d'un produit (à 0 ou moins, le produit est retiré)
   function updateQuantity(id, quantity) {
     setItems((current) =>
       quantity <= 0
@@ -59,7 +59,7 @@ function CartProvider({ children }) {
     setItems([]);
   }
 
-  // nombre total d'articles (somme des quantités), affiché sur l'icône
+  // nombre total d'articles (somme des qtés), affiché sur l'icône
   const count = items.reduce((total, item) => total + item.quantity, 0);
   // prix total du panier
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);

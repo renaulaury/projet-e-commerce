@@ -10,12 +10,10 @@ import CartProvider from "./context/CartProvider";
 import AuthProvider from "./context/AuthProvider";
 
 function App() {
-  return (
-    // Providers autour de tout : utilisateur et panier accessibles sur toutes les pages
+  return (    
     <AuthProvider>
       <CartProvider>
         <BrowserRouter>
-          {/* Header et Footer hors de Routes : affichés sur toutes les pages */}
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
