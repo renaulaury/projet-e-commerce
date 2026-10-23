@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Clés secrètes (Stripe...)
+.env
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

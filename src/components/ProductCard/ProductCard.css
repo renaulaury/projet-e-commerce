@@ -1,0 +1,83 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Carré de fond : aspect-ratio garde la même taille pour toutes les images */
+.product-card__image-wrapper {
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg-accent);
+  padding: 32px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+/* contain : l'image entière, sans être déformée */
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.4s;
+}
+
+/* Léger zoom au survol */
+.product-card:hover .product-card__image {
+  transform: scale(1.05);
+}
+
+/* Titre coupé à 2 lignes max */
+.product-card__title {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  min-height: 2.6em; /* place pour 2 lignes : les prix restent alignés */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card:hover .product-card__title {
+  color: var(--color-primary-hover);
+}
+
+.product-card__reviews {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+.product-card__price {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+/* margin-top: auto : le bouton reste collé en bas de la carte */
+.product-card__add {
+  margin-top: auto;
+  padding: 10px 16px;
+  border: none;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.product-card__add:hover {
+  background: var(--color-primary-hover);
+}
+
+/* Petit enfoncement au clic */
+.product-card__add:active {
+  transform: scale(0.97);
+}

@@ -1,0 +1,128 @@
+.header {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.header__logo {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  color: var(--color-text-dark);
+  letter-spacing: 1px;
+}
+
+.header__nav {
+  display: flex;
+  gap: 28px;
+  font-size: 16px;
+}
+
+.header__nav a:hover,
+.header__account a:hover,
+.header__cart:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Lien de la page en cours : orange + souligné */
+.header__nav a.active,
+.header__account a.active {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* S'inscrire / Connexion */
+.header__account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.header__account span {
+  color: var(--color-text-light);
+}
+
+.header__account .header__user {
+  color: var(--color-text-dark);
+}
+
+/* bouton qui ressemble aux liens */
+.header__logout {
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header__logout:hover {
+  color: var(--color-primary-hover);
+}
+
+/* relative : la pastille se place par rapport à l'icône */
+.header__cart {
+  position: relative;
+  display: flex;
+  color: var(--color-text-dark);
+}
+
+.header__cart-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* Pastille orange avec le nombre d'articles, en haut à droite de l'icône */
+.header__cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  animation: badge-pop 0.3s ease-out;
+}
+
+/* Petit rebond quand le nombre change */
+@keyframes badge-pop {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Mobile : le menu passe sous le logo */
+@media (max-width: 800px) {
+  .header__bar {
+    flex-wrap: wrap;
+  }
+
+  .header__nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    gap: 20px;
+  }
+}
