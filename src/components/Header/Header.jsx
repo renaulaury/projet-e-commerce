@@ -1,9 +1,10 @@
 import { Link, NavLink } from "react-router";
 import { categories } from "../../data/categories";
 import { useCart } from "../../hooks/useCart";
+import SearchBar from "../SearchBar/SearchBar";
 import "./Header.css";
 
-// En-tête : logo, liens des catégories et panier
+// En-tête : logo, liens des catégories, recherche et panier
 function Header() {
   const { count } = useCart();
 
@@ -25,6 +26,8 @@ function Header() {
             </NavLink>
           ))}
         </nav>
+
+        <SearchBar />
 
         <Link to="/panier" className="header__cart" aria-label={`Panier : ${count} article(s)`}>
           {/* icône sac de courses */}

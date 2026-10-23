@@ -1,0 +1,41 @@
+/* relative : la loupe se place dans le champ */
+.search-bar {
+  position: relative;
+  flex: 0 1 240px;
+}
+
+.search-bar__icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  color: var(--color-text-light);
+  pointer-events: none;
+}
+
+.search-bar__input {
+  width: 100%;
+  padding: 9px 14px 9px 38px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-bg-accent);
+  font: inherit;
+  font-size: 15px;
+  color: var(--color-text-dark);
+}
+
+.search-bar__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+/* Mobile : le champ prend toute la largeur, sous le logo */
+@media (max-width: 800px) {
+  .search-bar {
+    order: 2;
+    flex-basis: 100%;
+  }
+}
