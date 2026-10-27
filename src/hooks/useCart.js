@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import { AppContext } from "../context/AppContext";
 
 // Hook : accès au panier everywhere
 export function useCart() {
-  const cart = useContext(CartContext);
-  if (!cart) {
-    throw new Error("useCart doit être utilisé à l'intérieur de <CartProvider>");
+  const app = useContext(AppContext);
+  if (!app) {
+    throw new Error("useCart doit être utilisé à l'intérieur de <AppProvider>");
   }
-  return cart;
+  const { items, count, total, addToCart, updateQuantity, removeFromCart, clearCart } = app;
+  return { items, count, total, addToCart, updateQuantity, removeFromCart, clearCart };
 }
