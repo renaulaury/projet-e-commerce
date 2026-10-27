@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AppContext } from "../context/AppContext";
 
 // Hook : accès à l'utilisateur everywhere
 export function useAuth() {
-  const auth = useContext(AuthContext);
-  if (!auth) {
-    throw new Error("useAuth doit être utilisé à l'intérieur de <AuthProvider>");
+  const app = useContext(AppContext);
+  if (!app) {
+    throw new Error("useAuth doit être utilisé à l'intérieur de <AppProvider>");
   }
-  return auth;
+  const { user, login, logout } = app;
+  return { user, login, logout };
 }
