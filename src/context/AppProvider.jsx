@@ -1,30 +1,59 @@
 import { useEffect, useState } from "react";
-import { CartContext } from "./CartContext";
+import { AppContext } from "./AppContext";
 
-const STORAGE_KEY = "cart";
+const USER_KEY = "user";
+const CART_KEY = "cart";
 
-// lit le panier save 
-function loadCart() {
+// lit une valeur save (fallback si rien ou si le navigateur bloque le stockage)
+function load(key, fallback) {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? [];
+    return JSON.parse(localStorage.getItem(key)) ?? fallback;
   } catch {
-    return [];
+    return fallback;
   }
 }
 
-// Fournit le panier à toute l'appli
-function CartProvider({ children }) {
+// Fournit l'utilisateur et le panier à toute l'appli
+// (pas de serveur pour l'instant : tout est gardé dans le navigateur)
+function AppProvider({ children }) {
+  // { name, email } ou null si personne n'est connecté
+  const [user, setUser] = useState(() => load(USER_KEY, null));
   // chaque ligne : { id, title, price, image, quantity }
-  const [items, setItems] = useState(loadCart);
+  const [items, setItems] = useState(() => load(CART_KEY, []));
 
-  // save à chaque changement
+  // save à chaque changement : on reste connecté après un rechargement
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      if (user) {
+        localStorage.setItem(USER_KEY, JSON.stringify(user));
+      } else {
+        localStorage.removeItem(USER_KEY);
+      }
+    } catch {
+      // stockage indispo : l'utilisateur reste seulement en mémoire
+    }
+  }, [user]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_KEY, JSON.stringify(items));
     } catch {
       // stockage indispo : le panier reste seulement en mémoire
     }
   }, [items]);
+
+  // --- utilisateur ---
+
+  // on ne garde jamais le mot de passe
+  function login({ name, email }) {
+    setUser({ name, email });
+  }
+
+  function logout() {
+    setUser(null);
+  }
+
+  // --- panier ---
 
   // produit déjà dans le panier : +1 sur la qté, sinon nouvelle ligne
   // ... = spread, copie le prod (ou le panier) avant modif
@@ -65,12 +94,15 @@ function CartProvider({ children }) {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <CartContext.Provider
-      value={{ items, count, total, addToCart, updateQuantity, removeFromCart, clearCart }}
+    <AppContext.Provider
+      value={{
+        user, login, logout,
+        items, count, total, addToCart, updateQuantity, removeFromCart, clearCart,
+      }}
     >
       {children}
-    </CartContext.Provider>
+    </AppContext.Provider>
   );
 }
 
-export default CartProvider;
+export default AppProvider;
